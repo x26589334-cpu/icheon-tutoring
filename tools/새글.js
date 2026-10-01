@@ -17,12 +17,8 @@ const posts = fs.readdirSync(path.join(ROOT, 'blog')).filter(f => f.endsWith('.h
 
 /* blog.html 목록 교체 */
 let bl = fs.readFileSync(path.join(ROOT, 'blog.html'), 'utf8');
-const items = posts.map(p => `<article class="post-item">
-        <time datetime="${p.date}">${p.date}</time>
-        <h3><a href="blog/${p.slug}">${p.title}</a></h3>
-        <p class="muted">${p.summary}</p>
-      </article>`).join('\n      ');
-bl = bl.replace(/<div class="post-list">[\s\S]*?<\/div>\n    <div class="hl-box"/, `<div class="post-list">\n      ${items}\n    </div>\n    <div class="hl-box"`);
+const items = posts.map(p => `<article class="post-item">\r\n        <time datetime="${p.date}">${p.date}</time>\r\n        <h3><a href="blog/${p.slug}">${p.title}</a></h3>\r\n        <p class="muted">${p.summary}</p>\r\n      </article>`).join('\r\n      ');
+bl = bl.replace(/<div class="post-list">[\s\S]*?<\/div>\r?\n    <div class="hl-box"/, `<div class="post-list">\r\n      ${items}\r\n    </div>\r\n    <div class="hl-box"`);
 fs.writeFileSync(path.join(ROOT, 'blog.html'), bl, 'utf8');
 
 /* rss.xml */
